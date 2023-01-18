@@ -76,21 +76,20 @@ public class DrivetrainTab extends ShuffleboardTabBase{
     @Override
 	public void update() {
 
-        m_rightFrontMotorEncoderEntry.setDouble(m_Drivetrain.getRightFrontEncoderDistance());
-        m_rightBackMotorEncoderEntry.setDouble(m_Drivetrain.getRightBackEncoderDistance());
         m_leftFrontMotorEncoderEntry.setDouble(m_Drivetrain.getLeftFrontEncoderDistance());
+        m_rightFrontMotorEncoderEntry.setDouble(m_Drivetrain.getRightFrontEncoderDistance());
         m_leftBackMotorEncoderEntry.setDouble(m_Drivetrain.getLeftBackEncoderDistance());
+        m_rightBackMotorEncoderEntry.setDouble(m_Drivetrain.getRightBackEncoderDistance());
 
-        m_rightFrontMotorCurrentEntry.setDouble(m_Drivetrain.getRightFrontMotorCurrent());
-        m_rightBackMotorCurrentEntry.setDouble(m_Drivetrain.getRightBackMotorCurrent());
         m_leftFrontMotorCurrentEntry.setDouble(m_Drivetrain.getLeftFrontMotorCurrent());
+        m_rightFrontMotorCurrentEntry.setDouble(m_Drivetrain.getRightFrontMotorCurrent());
         m_leftBackMotorCurrentEntry.setDouble(m_Drivetrain.getLeftBackMotorCurrent());
+        m_rightBackMotorCurrentEntry.setDouble(m_Drivetrain.getRightBackMotorCurrent());
 
-        m_rightFrontPDPCurrentEntry.setDouble(powerDistribution.getCurrent(pdRightFront));
-        m_rightBackPDPCurrentEntry.setDouble(powerDistribution.getCurrent(pdRightBack));
         m_leftFrontPDPCurrentEntry.setDouble(powerDistribution.getCurrent(pdLeftFront));
+        m_rightFrontPDPCurrentEntry.setDouble(powerDistribution.getCurrent(pdRightFront));
         m_leftBackPDPCurrentEntry.setDouble(powerDistribution.getCurrent(pdLeftBack));
-
+        m_rightBackPDPCurrentEntry.setDouble(powerDistribution.getCurrent(pdRightBack));
 
         m_gyroHeadingEntry.setDouble(m_Drivetrain.getAngle());
     }

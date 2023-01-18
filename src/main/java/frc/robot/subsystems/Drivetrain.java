@@ -37,37 +37,21 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
 
-    leftFrontMotor.restoreFactoryDefaults();
-    rightFrontMotor.restoreFactoryDefaults();
-    leftBackMotor.restoreFactoryDefaults();
-    rightBackMotor.restoreFactoryDefaults();
-    ///Original Inversions
+    configureMotor(leftFrontMotor);
+    configureMotor(leftBackMotor);
+    configureMotor(rightFrontMotor);
+    configureMotor(rightBackMotor);
+
     leftFrontMotor.setInverted(true);
     leftBackMotor.setInverted(true);
-    leftFrontMotor.setIdleMode(IdleMode.kCoast);
-    rightFrontMotor.setIdleMode(IdleMode.kCoast);
-    leftBackMotor.setIdleMode(IdleMode.kCoast);
-    rightBackMotor.setIdleMode(IdleMode.kCoast);
-    
-    leftFrontMotor.setSmartCurrentLimit(Constants.MAX_CURRENT_DRIVETRAIN);
-    rightFrontMotor.setSmartCurrentLimit(Constants.MAX_CURRENT_DRIVETRAIN);
-    leftBackMotor.setSmartCurrentLimit(Constants.MAX_CURRENT_DRIVETRAIN);
-    rightBackMotor.setSmartCurrentLimit(Constants.MAX_CURRENT_DRIVETRAIN);
 
-    leftFrontEncoder.setPositionConversionFactor(Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION);
-    leftBackEncoder.setPositionConversionFactor(Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION);
-    rightFrontEncoder.setPositionConversionFactor(Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION);
-    rightBackEncoder.setPositionConversionFactor(Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION);
+    configureEncoder(leftFrontEncoder);
+    configureEncoder(leftBackEncoder);
+    configureEncoder(rightFrontEncoder);
+    configureEncoder(rightBackEncoder);
 
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
-    
     drivetrain.setMaxOutput(Constants.HIGH_GEAR);
-
-    leftFrontEncoder.setPosition(0);
-    leftBackEncoder.setPosition(0);
-    rightFrontEncoder.setPosition(0);
-    rightBackEncoder.setPosition(0);
-
 
   }
 
@@ -84,6 +68,21 @@ public class Drivetrain extends SubsystemBase {
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation, gyroHeading);
   }
 
+  private void configureMotor(CANSparkMax motorController)
+  {
+    motorController.restoreFactoryDefaults();
+    motorController.setIdleMode(IdleMode.kCoast);
+    motorController.setSmartCurrentLimit(Constants.MAX_CURRENT_DRIVETRAIN);
+ 
+  }
+
+  private void configureEncoder(RelativeEncoder motorEncoder)
+  {
+    motorEncoder.setPositionConversionFactor(Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION);
+    motorEncoder.setPosition(0);
+
+  }
+
   public void setMaxSpeed(double speed) {
     drivetrain.setMaxOutput(speed);
   }
@@ -91,17 +90,17 @@ public class Drivetrain extends SubsystemBase {
   public void setWheelsToCoast(boolean isCoast)
   {
     if (isCoast){
-      leftBackMotor.setIdleMode(IdleMode.kCoast);
       leftFrontMotor.setIdleMode(IdleMode.kCoast);
-      rightBackMotor.setIdleMode(IdleMode.kCoast);
+      leftBackMotor.setIdleMode(IdleMode.kCoast);
       rightFrontMotor.setIdleMode(IdleMode.kCoast);
+      rightBackMotor.setIdleMode(IdleMode.kCoast);
     }
      else
     {
-      leftBackMotor.setIdleMode(IdleMode.kBrake);
       leftFrontMotor.setIdleMode(IdleMode.kBrake);
-      rightBackMotor.setIdleMode(IdleMode.kBrake);
+      leftBackMotor.setIdleMode(IdleMode.kBrake);
       rightFrontMotor.setIdleMode(IdleMode.kBrake);
+      rightBackMotor.setIdleMode(IdleMode.kBrake);
 
     }
 
